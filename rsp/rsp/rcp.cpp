@@ -10,16 +10,16 @@ enum RSP
 	RSP_end
 };
 int main() {
-	//���� ���̺� ����
+	//난수 테이블 생성
 	srand((unsigned int)time(0));
 	int iPlayer, iAI;
 
 	while (1) {
-		cout << "�޴��� �����ϼ���." << endl;
-		cout << "1. ����" << endl;
-		cout << "2. ����" << endl;
-		cout << "3. ��" << endl;
-		cout << "4. ����" << endl;
+		cout << "메뉴를 선택하세요." << endl;
+		cout << "1. 바위" << endl;
+		cout << "2. 가위" << endl;
+		cout << "3. 보" << endl;
+		cout << "4. 종료" << endl;
 		cin >> iPlayer;
 
 		if (R > iPlayer || iPlayer > RSP_end) {
@@ -30,34 +30,34 @@ int main() {
 		else if (iPlayer == RSP_end)
 			break;
 
-		//���� ����
+		//봇이 선택
 
 		iAI = rand() % 3 + R;
-		//3���� ����, R�� �ʱⰪ!!
-		//iAI�� 4�� �����ϸ� �ȵ�!
+		//3가지 종류, R이 초기값!!
+		//iAI가 4를 선택하면 안됨!
 
 		switch (iAI) {
 		case R :
-			cout << "AI : ����" << endl;
+			cout << "AI : 바위" << endl;
 			break;
 		case S :
-			cout << "AI : ����" << endl;
+			cout << "AI : 가위" << endl;
 			break;
 		case P :
-			cout << "AI : ��" << endl;
+			cout << "AI : 보" << endl;
 			break;
 		}
 
 		int iWin = iPlayer - iAI;
 
 		if (iWin == -1 || iWin == 2) {
-			cout << "�÷��̾� ��" << endl;
+			cout << "플레이어 승" << endl;
 		}
 		else if (iWin == 0) {
-			cout << "����" << endl;
+			cout << "비김" << endl;
 		}
 		else
-			cout << "AI �¸�" << endl;
+			cout << "AI 승리" << endl;
 
 		system("pause");
 	}
