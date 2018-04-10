@@ -3,7 +3,7 @@
 using namespace std;
 
 enum RSP
-{ 
+{
 	R = 1,
 	S,
 	P,
