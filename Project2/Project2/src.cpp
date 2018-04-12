@@ -20,7 +20,7 @@ int main() {
 	iNum[24] = INT_MAX;
 	//INT_MAX는 이미 정의된 값, int로 표현할 수 있는 최대값
 
-/*	//Shuffle
+	//Shuffle
 	int iTmp, idx1, idx2;
 
 	for (int i = 0; i < 100; i++) {
@@ -31,7 +31,7 @@ int main() {
 		iNum[idx1] = iNum[idx2];
 		iNum[idx2] = iTmp;
 	}
-	*/
+	
 	int cnt = 0;
 	while (true) {
 
