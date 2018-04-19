@@ -13,6 +13,7 @@ bool rowchk(int n, bool mode);
 bool colchk(int n, bool mode);
 
 void print_board();
+int score_chker(int bingo, int bingoAI);
 int easy_sel();
 int hard_sel();
 int main() {
@@ -66,7 +67,6 @@ int main() {
 	while (1) {
 		//system("cls");
 		cnt++;
-		//print_board();
 		if (!chk) {
 			cout << "1~ 25 중 숫자를 입력하세요(0 : exit)." << endl;
 
@@ -122,28 +122,15 @@ int main() {
 		if (dchk1 == 5) bingo++;
 		if (dchk0_AI == 5) bingoAI++;
 		if (dchk1_AI == 5) bingoAI++;
-		if (bingo >= 4 || bingoAI>=4) {
-			if (bingo >= 5 && bingoAI >= 5) {
-				cout << "\n무승부" << endl;
+		if (bingo >= 4 || bingoAI >= 4) {
+			if (!score_chker(bingo, bingoAI)) {
 				system("pause");
 				return 0;
 			}
-			if (bingo >= 5) {
-				cout << "\n승리" << endl;
-				system("pause");
-				return 0;
-			}
-			if (bingoAI >= 5) {
-				cout << "\n패배" << endl;
-				system("pause");
-				return 0;
-			}
-			system("cls");
-			if (bingo == 4) cout << "<<<<승리 임박>>>>" << endl;
-			if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
-
 		}
-		else system("cls");
+			
+
+
 		int aiinput = iAImode==1? easy_sel():hard_sel();
 		cout << "player의 차례입니다. : " << cinput << endl;
 		cout << "\nAI의 차례입니다. : " <<aiinput<< endl;
@@ -186,24 +173,12 @@ int main() {
 		if (dchk0_AI == 5) bingoAI++;
 		if (dchk1_AI == 5) bingoAI++;
 
-
-		if (bingo >= 5 && bingoAI>=5) {
-			cout << "\n무승부" << endl;
-			system("pause");
-			return 0;
+		if (bingo >= 4 || bingoAI >= 4) {
+			if (!score_chker(bingo, bingoAI)) {
+				system("pause");
+				return 0;
+			}
 		}
-		if (bingo >= 5) {
-			cout << "\n승리" << endl;
-			system("pause");
-			return 0;
-		}
-		if (bingoAI >= 5) {
-			cout << "\n패배" << endl;
-			system("pause");
-			return 0;
-		}
-		if (bingo == 4) cout << "<<<<승리 임박>>>>" << endl;
-		if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
 	}
 }
 
@@ -264,4 +239,23 @@ void print_board() {
 		}cout << endl;
 	}
 	return;
+}
+
+int score_chker(int bingo, int bingoAI) {
+	if (bingo >= 5 && bingoAI >= 5) {
+		cout << "\n무승부" << endl;
+		return 0;
+	}
+	if (bingo >= 5) {
+		cout << "\n승리" << endl;
+		return 0;
+	}
+	if (bingoAI >= 5) {
+		cout << "\n패배" << endl;
+		return 0;
+	}
+	if (bingo == 4) cout << "<<<<승리 임박>>>>" << endl;
+	if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
+
+	return 1;
 }
