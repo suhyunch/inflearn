@@ -8,6 +8,8 @@ using namespace std;
 bool used[26];
 int board[25];
 int AI[25];
+int bingo;
+int bingoAI;
 
 bool rowchk(int n, bool mode);
 bool colchk(int n, bool mode);
@@ -16,6 +18,7 @@ void print_board();
 int score_chker(int bingo, int bingoAI);
 int easy_sel();
 int hard_sel();
+void cnt_line();
 int main() {
 	srand((unsigned int)time(0));
 
@@ -93,43 +96,14 @@ int main() {
 				AI[i]= INT_MAX;
 		}
 		print_board();
-		int bingo = 0;
-		int bingoAI = 0;
-		int dchk0 = 0;
-		int dchk0_AI = 0;
-		int dchk1 = 0;
-		int dchk1_AI = 0;
-		for (int i = 0; i < 5; i++) {
-			bingo += rowchk(i, 0);
-			bingo += colchk(i, 0);
-			bingoAI += rowchk(i, 1);
-			bingoAI += colchk(i, 1);
-		}
-		for (int i = 0; i < 5; i++) {
-			if (board[i * 5 + i] == INT_MAX)
-				dchk0++;
-			if (board[4 * (i + 1)] == INT_MAX) {
-				dchk1++;
-			}
-			if (AI[i * 5 + i] == INT_MAX)
-				dchk0_AI++;
-			if (AI[4 * (i + 1)] == INT_MAX) {
-				dchk1_AI++;
-			}
 
-		}
-		if (dchk0 == 5) bingo++;
-		if (dchk1 == 5) bingo++;
-		if (dchk0_AI == 5) bingoAI++;
-		if (dchk1_AI == 5) bingoAI++;
+		cnt_line();
 		if (bingo >= 4 || bingoAI >= 4) {
 			if (!score_chker(bingo, bingoAI)) {
 				system("pause");
 				return 0;
 			}
 		}
-			
-
 
 		int aiinput = iAImode==1? easy_sel():hard_sel();
 		cout << "player의 차례입니다. : " << cinput << endl;
@@ -143,36 +117,8 @@ int main() {
 		}
 		cout << cnt <<"번째 turn 결과 :::::::::::::::::::::::" << endl;
 		print_board();
-		bingo = 0;
-		bingoAI = 0;
-		dchk0 = 0;
-		dchk0_AI = 0;
-		dchk1 = 0;
-		dchk1_AI = 0;
-		for (int i = 0; i < 5; i++) {
-			bingo += rowchk(i,0);
-			bingo += colchk(i,0);
-			bingoAI += rowchk(i, 1);
-			bingoAI += colchk(i, 1);
-		}
-		for (int i = 0; i < 5; i++) {
-			if (board[i * 5 + i] == INT_MAX)
-				dchk0++;
-			if (board[4 * (i + 1)] == INT_MAX) {
-				dchk1++;
-			}
-			if (AI[i * 5 + i] == INT_MAX)
-				dchk0_AI++;
-			if (AI[4 * (i + 1)] == INT_MAX) {
-				dchk1_AI++;
-			}
-
-		}
-		if (dchk0 == 5) bingo++;
-		if (dchk1 == 5) bingo++;
-		if (dchk0_AI == 5) bingoAI++;
-		if (dchk1_AI == 5) bingoAI++;
-
+		
+		cnt_line();
 		if (bingo >= 4 || bingoAI >= 4) {
 			if (!score_chker(bingo, bingoAI)) {
 				system("pause");
@@ -258,4 +204,36 @@ int score_chker(int bingo, int bingoAI) {
 	if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
 
 	return 1;
+}
+
+void cnt_line() {
+	bingo = 0;
+	bingoAI = 0;
+	int dchk0 = 0;
+	int dchk0_AI = 0;
+	int dchk1 = 0;
+	int dchk1_AI = 0;
+	for (int i = 0; i < 5; i++) {
+		bingo += rowchk(i, 0);
+		bingo += colchk(i, 0);
+		bingoAI += rowchk(i, 1);
+		bingoAI += colchk(i, 1);
+	}
+	for (int i = 0; i < 5; i++) {
+		if (board[i * 5 + i] == INT_MAX)
+			dchk0++;
+		if (board[4 * (i + 1)] == INT_MAX) {
+			dchk1++;
+		}
+		if (AI[i * 5 + i] == INT_MAX)
+			dchk0_AI++;
+		if (AI[4 * (i + 1)] == INT_MAX) {
+			dchk1_AI++;
+		}
+
+	}
+	if (dchk0 == 5) bingo++;
+	if (dchk1 == 5) bingo++;
+	if (dchk0_AI == 5) bingoAI++;
+	if (dchk1_AI == 5) bingoAI++;
 }
