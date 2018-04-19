@@ -11,6 +11,8 @@ int AI[25];
 
 bool rowchk(int n, bool mode);
 bool colchk(int n, bool mode);
+
+void print_board();
 int easy_sel();
 int hard_sel();
 int main() {
@@ -52,32 +54,21 @@ int main() {
 		if (iAImode >= easy && iAImode <= hard)
 			break;
 	}
-
+	cout << endl;
 	/*
 	AI easy 모드 ::  현재 AI 숫자목록 중 *로 바뀌지 않은 숫자 중 하나 선택
 	*/
 	bool chk = 0;
 	if (iAImode == easy) cout << " :::::::::::::::: EASY MODE :::::::::::::::: " << endl;
 	else cout << " :::::::::::::::: HARD MODE :::::::::::::::: " << endl;
-	cout << "==============Player==============" << endl;
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 5; j++) {
-			if (board[i * 5 + j] != INT_MAX) cout << board[i * 5 + j] << "\t";
-			else cout << "*\t";
-		}cout << endl;
-	}
-	cout << "================AI================" << endl;
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 5; j++) {
-			if (AI[i * 5 + j] != INT_MAX) cout << AI[i * 5 + j] << "\t";
-			else cout << "*\t";
-		}cout << endl;
-	}
+	print_board();
+	int cnt = 0;
 	while (1) {
 		//system("cls");
-
+		cnt++;
+		//print_board();
 		if (!chk) {
-			cout << "\n1~ 25 중 숫자를 입력하세요(0 : exit)." << endl;
+			cout << "1~ 25 중 숫자를 입력하세요(0 : exit)." << endl;
 
 		}
 		chk = 0;
@@ -101,20 +92,7 @@ int main() {
 			if(AI[i]==cinput)
 				AI[i]= INT_MAX;
 		}
-		cout << "==============Player==============" << endl;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (board[i * 5 + j] != INT_MAX) cout << board[i * 5 + j] << "\t";
-				else cout << "*\t";
-			}cout << endl;
-		}
-		cout << "\n================AI================" << endl;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (AI[i * 5 + j] != INT_MAX) cout << AI[i * 5 + j] << "\t";
-				else cout << "*\t";
-			}cout << endl;
-		}
+		print_board();
 		int bingo = 0;
 		int bingoAI = 0;
 		int dchk0 = 0;
@@ -144,25 +122,30 @@ int main() {
 		if (dchk1 == 5) bingo++;
 		if (dchk0_AI == 5) bingoAI++;
 		if (dchk1_AI == 5) bingoAI++;
+		if (bingo >= 4 || bingoAI>=4) {
+			if (bingo >= 5 && bingoAI >= 5) {
+				cout << "\n무승부" << endl;
+				system("pause");
+				return 0;
+			}
+			if (bingo >= 5) {
+				cout << "\n승리" << endl;
+				system("pause");
+				return 0;
+			}
+			if (bingoAI >= 5) {
+				cout << "\n패배" << endl;
+				system("pause");
+				return 0;
+			}
+			system("cls");
+			if (bingo == 4) cout << "<<<<승리 임박>>>>" << endl;
+			if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
 
-		if (bingo == 4) cout << "<<<<승리 임박>>>>" << endl;
-		if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
-		if (bingo >= 5 && bingoAI >= 5) {
-			cout << "\n무승부" << endl;
-			system("pause");
-			return 0;
 		}
-		if (bingo >= 5) {
-			cout << "\n승리" << endl;
-			system("pause");
-			return 0;
-		}
-		if (bingoAI >= 5) {
-			cout << "\n패배" << endl;
-			system("pause");
-			return 0;
-		}
+		else system("cls");
 		int aiinput = iAImode==1? easy_sel():hard_sel();
+		cout << "player의 차례입니다. : " << cinput << endl;
 		cout << "\nAI의 차례입니다. : " <<aiinput<< endl;
 		used[aiinput] = true;
 		for (int i = 0; i < 25; i++) {
@@ -171,21 +154,8 @@ int main() {
 			if (AI[i] == aiinput)
 				AI[i] = INT_MAX;
 		}
-
-		cout << "==============Player==============" << endl;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (board[i * 5 + j] != INT_MAX) cout << board[i * 5 + j] << "\t";
-				else cout << "*\t";
-			}cout << endl;
-		}
-		cout << "\n================AI================" << endl;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (AI[i * 5 + j] != INT_MAX) cout << AI[i * 5 + j] << "\t";
-				else cout << "*\t";
-			}cout << endl;
-		}
+		cout << cnt <<"번째 turn 결과 :::::::::::::::::::::::" << endl;
+		print_board();
 		bingo = 0;
 		bingoAI = 0;
 		dchk0 = 0;
@@ -277,3 +247,21 @@ int easy_sel(){
 	}
 }
 int hard_sel() { return 0; }
+
+void print_board() {
+	cout << "==============Player==============" << endl;
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			if (board[i * 5 + j] != INT_MAX) cout << board[i * 5 + j] << "\t";
+			else cout << "*\t";
+		}cout << endl;
+	}
+	cout << "\n================AI================" << endl;
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			if (AI[i * 5 + j] != INT_MAX) cout << AI[i * 5 + j] << "\t";
+			else cout << "*\t";
+		}cout << endl;
+	}
+	return;
+}
