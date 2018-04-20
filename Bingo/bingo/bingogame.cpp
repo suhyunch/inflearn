@@ -23,7 +23,7 @@ void make_board();
 int main() {
 	make_board();
 	int iAImode;
-	//AI���̵��� ����
+	//AI난이도 선택하기
 	while (true) {
 		cout << "1. Esay" << endl;
 		cout << "2. Hard" << endl;
@@ -73,12 +73,11 @@ int main() {
 		cnt_line();
 		if (bingo >= 4 || bingoAI >= 4) {
 			system("cls");
-			cout << "Player�� ���� : " << cinput << endl;
-			//cout << "AI�� ���� : " << aiinput << endl;
+			cout << "Player의 선택 : " << cinput << endl;
 
 			if(score_chker(bingo, bingoAI)) print_board();
 			else {
-				cout << "���� ����" << endl;
+				cout << "최종 결과" << endl;
 				print_board();
 				system("pause");
 				return 0;
