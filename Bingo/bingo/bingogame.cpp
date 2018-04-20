@@ -27,7 +27,7 @@ int main() {
 	while (true) {
 		cout << "1. Esay" << endl;
 		cout << "2. Hard" << endl;
-		cout << "AI ���带 �����ϼ��� : ";
+		cout << "AI 모드를 선택하세요 : ";
 
 		cin >> iAImode;
 
@@ -35,9 +35,6 @@ int main() {
 			break;
 	}
 	cout << endl;
-	/*
-	AI easy ���� ::  ���� AI ���ڸ��� �� *�� �ٲ��� ���� ���� �� �ϳ� ����
-	*/
 	bool chk = 0;
 	if (iAImode == easy) cout << ":::::::::::: EASY MODE ::::::::::::" << endl;
 	else cout << ":::::::::::: HARD MODE ::::::::::::" << endl;
@@ -47,20 +44,20 @@ int main() {
 		//system("cls");
 		cnt++;
 		if (!chk) {
-			cout << "1~ 25 �� ���ڸ� �Է��ϼ���(0 : exit)." << endl;
+			cout << "1~ 25 중 숫자를 입력하세요(0 : exit)." << endl;
 
 		}
 		chk = 0;
-		cout << "player�� �����Դϴ�. : ";
+		cout << "player의 차례입니다. : ";
 		int cinput;
 		cin >> cinput;
 		if (cinput == 0) {
-			cout << "������ �����մϴ�." << endl;
+			cout << "게임을 종료합니다." << endl;
 			system("pause");
 			return 0;
 		}
 		if (used[cinput]) {
-			cout << "�̹� ������ �����Դϴ�. �ٽ� �������ּ���." << endl;
+			cout << "이미 선택한 숫자입니다. 다시 선택해주세요." << endl;
 			chk = 1;
 			continue;
 		}
@@ -89,8 +86,8 @@ int main() {
 		}
 		system("cls");
 		int aiinput = iAImode==1? easy_sel():hard_sel();
-		cout << "Player�� ���� : " << cinput << endl;
-		cout << "AI�� ���� : " <<aiinput<< endl;
+		cout << "Player의 선택 : " << cinput << endl;
+		cout << "AI의 선택 : " <<aiinput<< endl;
 		used[aiinput] = true;
 		for (int i = 0; i < 25; i++) {
 			if (board[i] == aiinput)
@@ -98,21 +95,21 @@ int main() {
 			if (AI[i] == aiinput)
 				AI[i] = INT_MAX;
 		}
-		cout <<endl<< cnt <<"��° turn ���� :::::::::::::::::::::::" << endl;
+		cout <<endl<< cnt <<"번째 turn 결과 :::::::::::::::::::::::" << endl;
 		print_board();
 
 		cnt_line();
 		if (bingo >= 4 || bingoAI >= 4) {
 			system("cls");
-			cout << "Player�� ���� : " << cinput << endl;
-			cout << "AI�� ���� : " << aiinput << endl;
+			cout << "Player의 선택 : " << cinput << endl;
+			cout << "AI의 선택 : " << aiinput << endl;
 
 			if (score_chker(bingo, bingoAI)) {
-				cout << endl << cnt << "��° turn ���� :::::::::::::::::::::::" << endl;
+				cout << endl << cnt << "번째 turn 결과 :::::::::::::::::::::::" << endl;
 				print_board();
 			}
 			else {
-				cout << "���� ����" << endl;
+				cout << "최종 결과" << endl;
 				print_board();
 				system("pause");
 				return 0;
@@ -299,19 +296,19 @@ void print_board() {
 
 int score_chker(int bingo, int bingoAI) {
 	if (bingo >= 5 && bingoAI >= 5) {
-		cout << "\n���º�" << endl;
+		cout << "\n무승부" << endl;
 		return 0;
 	}
 	if (bingo >= 5) {
-		cout << "\n�¸�" << endl;
+		cout << "\n승리" << endl;
 		return 0;
 	}
 	if (bingoAI >= 5) {
-		cout << "\n�й�" << endl;
+		cout << "\n패배" << endl;
 		return 0;
 	}
-	if (bingo == 4) cout << "<<<<�¸� �ӹ�>>>>" << endl;
-	if (bingoAI == 4) cout << "AI�� ������ 4�� �ϼ��Ǿ����ϴ�. �й��ϼ���!" << endl;
+	if (bingo == 4) cout << "<<<<승리 임박>>>>" << endl;
+	if (bingoAI == 4) cout << "AI의 빙고가 4줄 완성되었습니다. 분발하세요!" << endl;
 
 	return 1;
 }
